@@ -86,12 +86,17 @@ ostream& operator<<(ostream& os, const Dresseur& dresseur) {
         
         // todo:
         // Verifier s'il s'agit d'une creature magique
-        // S'il s'agit bien d'une creature magique,
-        // afficher "Creature magique:"
-        
-        // Si c'est une CreatureExperience, faite
+		if (dynamic_cast<CreatureMagique*>(c.get())) {
+		// S'il s'agit bien d'une creature magique,
+				// afficher "Creature magique:"
+			cout << "Creature magique: " << endl;
+		}
+		else {
+		// Si c'est une CreatureExperience, faite
         // l'affichage de "Creature d'experience:"
-        
+			cout << "Creature d'experience: " << endl;
+		}
+
         os << *c << endl;
         os << dresseur.nom_ << " possede l'objet suivant: " << endl;
         os << dresseur.objetMagique_;
