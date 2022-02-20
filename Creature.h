@@ -24,6 +24,8 @@ public:
     
 	// todo: définir le destructeur
     
+	virtual ~Creature() = default;
+	
 	string obtenirNom() const;
 	unsigned int obtenirAttaque() const;
 	unsigned int obtenirDefense() const;
