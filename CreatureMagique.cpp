@@ -5,7 +5,7 @@
 CreatureMagique::CreatureMagique(const string& nom) :Creature(nom), potionMagique_(0){}
 
 // todo:DONE
-// Faire l'initialisation de tout les attributs
+// Faire l'initialisation de tout les attributs **********************
 CreatureMagique::CreatureMagique(const string& nom, unsigned int attaque, unsigned int defense, unsigned int pointDeVie, unsigned int energie, Pouvoir pouvoir, unsigned int potionMagique):Creature(nom, attaque, defense, pointDeVie, energie, pouvoir), potionMagique_(potionMagique){}
 
 // todo: DONE
@@ -14,7 +14,8 @@ CreatureMagique::CreatureMagique(const Creature& creature, unsigned int potionMa
 
 // todo:DONE
 // Faire l'initialisation de tout les attributs
-CreatureMagique::CreatureMagique(const CreatureMagique& creature):Creature(creature){}
+CreatureMagique::CreatureMagique(const CreatureMagique& creature) : Creature(creature), potionMagique_(creature.obtenirPotionMagique()) {}
+
 
 // todo DONE
 // Faire la surcharge de l'opérateur = de maniere a ce que
