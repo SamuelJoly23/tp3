@@ -2,11 +2,9 @@
 
 // todo: DONE
 // Faire l'initialisation de tout les attributs
-CreatureExperience::CreatureExperience(const string& nom):Creature(nom)
-{
+CreatureExperience::CreatureExperience(const string& nom) :Creature(nom), forceExperience_(0) {}
     //nom_ = nom; 
-    //this.nom_ = nom; proposition chargee td
-}
+    //this.nom_ = nom; //proposition chargee td
 //implementation apres ":"
 
 
@@ -23,7 +21,7 @@ CreatureExperience::CreatureExperience(const Creature& creature, unsigned int fo
 
 // todo:
 // Faire l'initialisation de tout les attributs
-CreatureExperience::CreatureExperience(const CreatureExperience& creature):Creature(creature) {}
+CreatureExperience::CreatureExperience(const CreatureExperience& creature):Creature(creature), forceExperience_(creature.obtenirForceExperience()) {}
 //implementation apres ":"
 
 
@@ -119,7 +117,7 @@ void CreatureExperience::attaquer(Creature& creature)
     }
     
 }
-// todo
+// todo DONE VERIFIED
 // Se fier à l'affichage des tests->
 // devrait dire que la creature {nom de la creature}
 // est une creature d'experience et devrait afficher
@@ -129,7 +127,7 @@ void CreatureExperience::afficher() const
     cout << "Creature Experience";
 }
 
-// todo
+// todo DONE VERIFIED
 // Se fier à l'affichage des tests->
 // 1. devrait utiliser la méthode afficher de l'objet courant
 // 2. devrait faire appel à la surcharge de l'operateur <<
@@ -138,7 +136,6 @@ std::ostream& operator<<(std::ostream & os, const CreatureExperience& creature)
 {
     creature.afficher();
     os << static_cast<Creature>(creature);
-
 	return os;
 }
 
@@ -146,8 +143,7 @@ std::ostream& operator<<(std::ostream & os, const CreatureExperience& creature)
 // doit retourner l'attribut forceExperience_ de l'objet courant
 unsigned int CreatureExperience::obtenirExperience () const
 {
-
-    return 0;
+    return this->forceExperience_;
 }
 
 unsigned int CreatureExperience::obtenirForceExperience() const
