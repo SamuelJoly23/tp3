@@ -28,18 +28,18 @@ public:
     
     void attaquer(Creature& creature) override;
     
-    // todo: ajouter override une fois que Experience sera cree
-	void afficher() const;
+    // todo: ajouter override une fois que Experience sera cree DONE
+	void afficher() const override; 
     
-    // todo: ajouter override une fois que Experience sera cree
-	unsigned int obtenirExperience () const;
+    // todo: ajouter override une fois que Experience sera cree DONE
+	unsigned int obtenirExperience () const override;
 
     // todo
     friend std::ostream& operator<<(std::ostream& os, const CreatureExperience& creature);
 	
 	unsigned int obtenirForceExperience() const;
 	void modifierForceExperience(unsigned int bonus);
-
+    string obtenirNomExperience() const override;
 private:
     // les creatureExperience ont une force Experience
     unsigned int forceExperience_;
