@@ -8,10 +8,9 @@ Date de modification:
 
 // todo:
 // Faire l'initialisation de tout les attributs
-DresseurMaitre::DresseurMaitre(const string& nom, const string& nomObjetMagique,
-                int bonus, int anneeExperience )
+DresseurMaitre::DresseurMaitre(const string& nom, const string& nomObjetMagique, int bonus, int anneeExperience) :Dresseur(nom, nomObjetMagique, bonus)
 {
-    
+    anneeExperience_ = anneeExperience;
 }
 
 
@@ -28,7 +27,7 @@ void DresseurMaitre::utiliserObjetMagique(shared_ptr<Creature> creature) {
     // 1. Permettre l'affichage decrivant comme quoi l'objet courant
     // (DresseurApprenti) est en train d'utiliser son objet magique.
     // (voir affichage)
-
+    cout << this->nom_ << " utilise son objet magique de dresseur maitre" << endl;
     // superBonus
 	int superBonus = this->obtenirObjetMagique().obtenirBonus() *anneeExperience_;
     
@@ -40,7 +39,19 @@ void DresseurMaitre::utiliserObjetMagique(shared_ptr<Creature> creature) {
     
     // On veut desormais que ce soit le superBonus qui soit ajoute
     // a la place de objetMagique_.obtenirBonus()
-    
+    if ((creature->obtenirPointDeVieTotal() - creature->obtenirPointDeVie()) >= objetMagique_.obtenirBonus()) {
+        creature->modifierPointDeVie(creature->obtenirPointDeVie() + superBonus);
+    }
+    else {
+        creature->modifierPointDeVie(creature->obtenirPointDeVieTotal());
+    }
+    if ((creature->obtenirEnergieTotale() - creature->obtenirEnergie()) > objetMagique_.obtenirBonus())
+    {
+        creature->modifierEnergie(creature->obtenirEnergie() + superBonus);
+    }
+    else {
+        creature->modifierEnergie(creature->obtenirEnergieTotale());
+    }
     // indice 1: Il s'agit d'une nouvelle implementation de la
     // methode utiliserObjetMagique. Par contre, elle est extremement
     // similaire a celle de la classe de base a quelque details
@@ -58,7 +69,8 @@ void DresseurMaitre::utiliserObjetMagique(shared_ptr<Creature> creature) {
 // dresseur ( fiez-vous a l'affichage )
 void DresseurMaitre::afficher() const
 {
-
+    cout << this->obtenirNom() << " est un Maitre Dresseur" << endl;
+    cout << "et a commes annees experience : " << this->anneeExperience_;
 }
 
 // todo
@@ -67,7 +79,11 @@ void DresseurMaitre::afficher() const
 // attributs. ( Utilisez la surcharge de la classe parent )
 ostream& operator<<(ostream& os, const DresseurMaitre& dresseur)
 {
+    dresseur.afficher();
+    os << static_cast<Dresseur>(dresseur);
     return os;
 }
 
-
+string DresseurMaitre::obtenirNomExperience() const {
+    return nom_;
+}
