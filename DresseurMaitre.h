@@ -30,16 +30,16 @@ public:
     
     friend std::ostream& operator<<(std::ostream& os, const DresseurMaitre& dresseur);
     
-    // todo: ajouter le mot clef override une fois que la classe
+    // todo: ajouter le mot clef override une fois que la classe DONE
     // Experience contiendra la methode
-	void afficher () const;
+	void afficher () const override;
     
-    // todo: ajouter le mot clef override une fois que la classe
+    // todo: ajouter le mot clef override une fois que la classe DONE
     // Experience contiendra la methode
-	unsigned int obtenirExperience() const;
-    
+	unsigned int obtenirExperience() const override;
+    string obtenirNomExperience() const override;
 private:
-     // un dresseur  a des années d'expérience
+     // un dresseur a des années d'expérience
 	 unsigned int  anneeExperience_;
 
 };
