@@ -16,14 +16,17 @@ bool PolyLand::ajouterDresseur(const shared_ptr<Dresseur> & dresseur) {
 		if (dresseurs_[i]->obtenirNom() == dresseur->obtenirNom())
 			return false;
 	}
-    
+
 	dresseurs_.push_back(dresseur);
-    
+
     // todo
     // Verifier si l'objet dresseur passe en parametre
     // est de type Experience. Si tel est le cas, ajouter
     // le au vecteur personnagesExperimentes_
-
+	
+	if (dynamic_cast<Experience*>(dresseur.get())) {
+		personnagesExperimentes_.push_back(dynamic_cast<Experience*>(dresseur.get()));
+	}
     
     return true;
 }
@@ -40,7 +43,9 @@ bool PolyLand::ajouterCreature(const shared_ptr<Creature>& creature) {
     // Verifier si l'objet creature passe en parametre
     // est de type Experience. Si tel est le cas, ajouter
     // le au vecteur personnagesExperimentes_
-		   
+	if (dynamic_cast<Experience*>(creature.get())) {	
+		personnagesExperimentes_.push_back(dynamic_cast<Experience*>(creature.get()));
+	}
 	return true;
 }
 
@@ -48,16 +53,15 @@ bool PolyLand::ajouterCreature(const shared_ptr<Creature>& creature) {
 bool PolyLand::retirerDresseur(const string& nom) {
 	for (unsigned int i = 0; i < dresseurs_.size(); i++) {
 		if (dresseurs_[i]->obtenirNom() == nom) {
-            
-			// todo:
-            // Verifier si l'objet ayant le nom passe en parametre
-            // est bel et bien un objet de type experience
-            // Si l'objet est de type experience, utiliser la
-            // methode retirerExperience() de la classe courante.
-
-            
+			// Verifier si l'objet dresseur est de type 
+			// Experience. Si tel est le cas, retirer
+			// le au vecteur personnagesExperimentes_
+			// en faisant appel a la methode retirerExperience()
+			if (dynamic_cast<Experience*>(dresseurs_[i].get())) {
+				retirerExperience(nom);
+			}
 			dresseurs_[i] = dresseurs_.back();
-		    dresseurs_.pop_back();
+			dresseurs_.pop_back();
 			return true;
 		}
 	}
@@ -66,13 +70,19 @@ bool PolyLand::retirerDresseur(const string& nom) {
 
 // todo
 // Retirer un personnage experience dans le vector <Experience>
-void PolyLand::retirerExperience( const shared_ptr<Experience>& experience )
+void PolyLand::retirerExperience(const string& nom)
 {
     // Faire l'iteration de tous les personnagesExperimentes
     // et verifier que le pointeur passe en parametre correspond
     // bien a l'un des pointeurs intelligent se retrouvant dans
     // le vecteur personnnagesExperimentes. Une fois trouver,
     // vous devez retirer le pointeur du vecteur.
+
+	for (const auto& personnagesExperimente : personnagesExperimentes_) {
+		if (personnagesExperimente->obtenirNomExperience() == nom) {
+			personnagesExperimentes_.pop_back();
+		}
+	}
 	   	
 }
 
@@ -87,7 +97,9 @@ bool PolyLand::retirerCreature(const string& nom) {
             // est bel et bien un objet de type experience
             // Si l'objet est de type experience, utiliser la
             // methode retirerExperience() de la classe courante.
-
+			if (dynamic_cast<Experience*>(creatures_[i].get())) {
+				retirerExperience(nom);
+			}
             
 			creatures_[i] = creatures_.back(); 
 			creatures_.pop_back();
@@ -202,7 +214,9 @@ ostream& operator<<(ostream& os, const PolyLand& poly) {
 // a partir du vector personnagesExperimentes_ (voir l'affichage)
 void PolyLand::afficherExperience() const
 {
-	   
+	for (const auto& perso : personnagesExperimentes_) {
+		perso->afficher();
+	}
 }
 
 vector<Experience *> PolyLand::obtenirExperience() const
