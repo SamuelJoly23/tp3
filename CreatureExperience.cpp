@@ -2,44 +2,36 @@
 
 // todo: DONE
 // Faire l'initialisation de tout les attributs
-CreatureExperience::CreatureExperience(const string& nom) :Creature(nom), forceExperience_(0) {}
-    //nom_ = nom; 
-    //this.nom_ = nom; //proposition chargee td
-//implementation apres ":"
-
-
-// todo: DONE VERIFIED
-// Faire l'initialisation de tout les attributs
-CreatureExperience::CreatureExperience(const string& nom, unsigned int attaque, unsigned int defense, unsigned int pointDeVie, unsigned int energie, Pouvoir pouvoir, unsigned int forceExp):Creature(nom, attaque, defense, pointDeVie, energie, pouvoir), forceExperience_(forceExp){}
-//implementation apres ":"
+CreatureExperience::CreatureExperience(const string& nom):Creature(nom), forceExperience_(0) {}
 
 // todo: DONE
 // Faire l'initialisation de tout les attributs
-CreatureExperience::CreatureExperience(const Creature& creature, unsigned int forceExp):Creature(creature), forceExperience_(forceExp){}
-//implementation apres ":"
+CreatureExperience::CreatureExperience(const string& nom, unsigned int attaque, 
+		unsigned int defense, unsigned int pointDeVie, unsigned int energie, Pouvoir pouvoir, 
+		unsigned int forceExp) : Creature(nom, attaque, defense, pointDeVie, energie, pouvoir), forceExperience_(forceExp) {}
 
-
-// todo:
+// todo: DONE
 // Faire l'initialisation de tout les attributs
-CreatureExperience::CreatureExperience(const CreatureExperience& creature):Creature(creature), forceExperience_(creature.obtenirForceExperience()) {}
-//implementation apres ":"
+CreatureExperience::CreatureExperience(const Creature& creature, unsigned int forceExp) : Creature(creature), forceExperience_(forceExp) {}
 
+// todo: DONE
+// Faire l'initialisation de tout les attributs
+CreatureExperience:: CreatureExperience(const CreatureExperience & creature) : Creature(creature), forceExperience_(creature.obtenirForceExperience()) {}
 
-
-// todo
+// todo: DONE
 // Faire la surcharge de l'opérateur = de maniere a ce que
 // les attributs de la creatureExperience puisse etre copie
 // dans l'objet courant.
-CreatureExperience& CreatureExperience::operator= (const CreatureExperience &  creature)
+CreatureExperience& CreatureExperience::operator= (const CreatureExperience&  creature)
 {
     if (this != &creature) {
         Creature::operator=(creature);
         forceExperience_ = creature.obtenirForceExperience();
     }
-	   return *this;
+    return *this;
 }
 
-// todo
+// todo: 
 // energie de creatureExperience est additionné à la forceExperience
 // l'attaque rate 1 fois sur 10
 void CreatureExperience::attaquer(Creature& creature)
@@ -47,7 +39,7 @@ void CreatureExperience::attaquer(Creature& creature)
     // todo
     // 1. Modifier l'energie de l'objet courant pour qu'elle
     // devienne: (l'energie courante + la force Experience)
-    
+    this->energie_ = this->energie_ + this->forceExperience_;
     
     // todo
     // 2. La méthode attaquer de la classe de base avait une
@@ -73,7 +65,7 @@ void CreatureExperience::attaquer(Creature& creature)
 
             // Determiner la defense restante de la creature
             int defenseRestante = static_cast<int>(creature.obtenirDefense()) - degatPotentiel;
-            
+
             if (defenseRestante < 0)
             {
                 degat = -defenseRestante;
@@ -117,17 +109,18 @@ void CreatureExperience::attaquer(Creature& creature)
     }
     
 }
-// todo DONE VERIFIED
+// todo
 // Se fier à l'affichage des tests->
 // devrait dire que la creature {nom de la creature}
 // est une creature d'experience et devrait afficher
 // sa force experience.
-void CreatureExperience::afficher() const
+void CreatureExperience::afficher() const //***************************************************
 {
-    cout << "Creature Experience";
+    cout << "Creature d'experience:";
+    cout << obtenirForceExperience() << endl;
 }
 
-// todo DONE VERIFIED
+// todo
 // Se fier à l'affichage des tests->
 // 1. devrait utiliser la méthode afficher de l'objet courant
 // 2. devrait faire appel à la surcharge de l'operateur <<
@@ -139,7 +132,7 @@ std::ostream& operator<<(std::ostream & os, const CreatureExperience& creature)
 	return os;
 }
 
-// todo
+// todo : 
 // doit retourner l'attribut forceExperience_ de l'objet courant
 unsigned int CreatureExperience::obtenirExperience () const
 {
@@ -154,4 +147,9 @@ unsigned int CreatureExperience::obtenirForceExperience() const
 void CreatureExperience::modifierForceExperience(unsigned int forceExperience)
 {
 	forceExperience_ = forceExperience;
+}
+
+
+string CreatureExperience::obtenirNomExperience() const {
+    return nom_;
 }
